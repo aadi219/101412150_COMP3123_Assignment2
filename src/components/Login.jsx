@@ -1,6 +1,7 @@
 import BaseInput from "./BaseInput";
 import client from "../client/Client";
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 export class Login extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export class Login extends Component {
     this.state = {
       credential: "",
       password: "",
+      loginSuccessful: false,
     };
   }
 
@@ -15,6 +17,7 @@ export class Login extends Component {
     e.preventDefault();
     const { name, value } = e.target;
     this.setState({
+      ...this.state,
       [name]: value,
     });
   };
@@ -31,7 +34,10 @@ export class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.login(this.state.credential, this.state.password).then((res) => {
-      console.log(res.data);
+      this.setState({
+        ...this.state,
+        loginSuccessful: true
+      })
     });
   };
 
@@ -53,6 +59,7 @@ export class Login extends Component {
         <button type="submit" className="btn btn-primary">
           Log-In
         </button>
+        <NavLink className='btn btn-secondary' to={'/signup'}>Signup</NavLink>
       </form>
     );
   }
