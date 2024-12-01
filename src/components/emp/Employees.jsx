@@ -16,20 +16,35 @@ const Employees = () => {
         setFilter(e.target.value);
     }
 
-    const handleFilter = async (e) => {
+    const handleFilter = (e) => {
         e.preventDefault();
 
         if (filter == "") {
             getEmployees();
             return;
         }
-        await empClient.get('/emp/employees/filter', {
+        empClient.get('/emp/employees/filter', {
             params: {
                 criteria: filter
             }
         }).then((response) => {
             setEmployees(response.data);
         })
+    }
+
+    const deleteEmployee = async (empId) => {
+        try {
+            await empClient.delete('emp/employees', {
+                params: {
+                    eid: empId
+                }
+            });
+            getEmployees();
+
+        } catch (error) {
+            console.error(error);
+        }
+
     }
 
     useEffect(() => {
@@ -68,7 +83,7 @@ const Employees = () => {
                                 <td className='flex justify-around'>
                                     <NavLink to={`${emp._id}`} className="btn btn-primary">View</NavLink>
                                     <NavLink to={`edit/${emp._id}`} className="btn btn-warning">Edit</NavLink>
-                                    <button className="btn btn-error">Delete</button>
+                                    <button onClick={() => deleteEmployee(emp._id)} className="btn btn-error">Delete</button>
                                 </td>
                             </tr>
                         ))
