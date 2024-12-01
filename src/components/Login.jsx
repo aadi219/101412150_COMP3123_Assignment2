@@ -1,7 +1,8 @@
 import BaseInput from "./BaseInput";
 import client from "../client/Client";
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
+import Employees from "./emp/Employees";
 
 export class Login extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ export class Login extends Component {
 
   render() {
     return (
+      <>
       <form onSubmit={this.handleSubmit}>
         <BaseInput
           labelText={"Username/Email"}
@@ -61,6 +63,12 @@ export class Login extends Component {
         </button>
         <NavLink className='btn btn-secondary' to={'/signup'}>Signup</NavLink>
       </form>
+      {
+        this.state.loginSuccessful ?
+        <Navigate to='/employees'/> :
+        ''
+      }
+      </>
     );
   }
 }
