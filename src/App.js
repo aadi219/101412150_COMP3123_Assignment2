@@ -8,6 +8,7 @@ import Employees from './components/emp/Employees';
 import Layout from './components/Layout';
 import CreateEmployee from './components/emp/CreateEmployee';
 import ViewEmployee from './components/emp/ViewEmployee';
+import EditEmployee from './components/emp/EditEmployee';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route index element={<Employees />} />
           <Route path='create' element={<CreateEmployee />} />
           <Route path=':id' element={<ViewEmployee />} />
+          <Route path='edit/:id' element={<EditEmployee/>} />
         </Route>
       </Routes>
     </BrowserRouter>

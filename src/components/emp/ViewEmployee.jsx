@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import client from '../../client/Client';
 
 const ViewEmployee = () => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     let [employee, setEmployee] = useState(null);
     
     const getEmployee = async () => {
@@ -16,6 +17,17 @@ const ViewEmployee = () => {
         getEmployee();
     }, [])
     
+    const handleDelete = async () => {
+        const response = await client.delete(`/emp/employees`, {
+            params: {
+                eid: id
+            }
+        });
+        if (response.status == 204) {
+            navigate('/employees');
+        }
+    }
+
   return (
         !employee ?
         <p>Loading employee...</p> :
@@ -38,8 +50,8 @@ const ViewEmployee = () => {
                 </div>
                 <div className="card-actions justify-start">
                     <NavLink to={-1} className='btn btn-primary justify-self-start px-8'>Back</NavLink>
-                    <NavLink to={`edit/${employee._id}`} className='btn btn-warning px-8'>Edit</NavLink>
-                    <button to={`delete/${employee._id}`} className='btn btn-error px-8'>Delete</button>
+                    <NavLink to={`/employees/edit/${employee._id}`} className='btn btn-warning px-8'>Edit</NavLink>
+                    <button onClick={handleDelete} className='btn btn-error px-8'>Delete</button>
                 </div>
             </div>
         </div>

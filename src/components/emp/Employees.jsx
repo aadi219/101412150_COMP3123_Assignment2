@@ -38,7 +38,7 @@ const Employees = () => {
                                 <td>{emp.department}</td>
                                 <td className='flex justify-around'>
                                     <NavLink to={`${emp._id}`} className="btn btn-primary">View</NavLink>
-                                    <button className="btn btn-warning">Edit</button>
+                                    <NavLink to={`edit/${emp._id}`} className="btn btn-warning">Edit</NavLink>
                                     <button className="btn btn-error">Delete</button>
                                 </td>
                             </tr>
