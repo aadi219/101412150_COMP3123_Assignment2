@@ -1,14 +1,11 @@
 import React from 'react'
 
-function BaseInput({type, labelText, name, value, placeholder, handleChange}) {
+function BaseInput({type, labelText, name, placeholder, handleChange}) {
   type = type || "text";
   return (
-    <div className="form-floating">
-        <input className='form-control' type={type}
-          name={name} id={name} placeholder={placeholder} 
-          onChange={handleChange}
-         />
-        <label htmlFor={name}>{labelText}</label>
+    <div className="">
+      <input type={type} placeholder={placeholder} name={name} id={name} onChange={handleChange}
+        className="input input-bordered w-full" />
     </div>
   )
 }
