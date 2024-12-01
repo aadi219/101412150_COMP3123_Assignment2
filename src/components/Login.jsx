@@ -35,6 +35,8 @@ export class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.login(this.state.credential, this.state.password).then((res) => {
+      localStorage.setItem("token", res.data.token);
+      console.log("User token set to: " + res.data.token);
       this.setState({
         ...this.state,
         loginSuccessful: true
@@ -45,23 +47,27 @@ export class Login extends Component {
   render() {
     return (
       <>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="flex flex-col gap-3 w-1/4">
+        <label>Credential:</label>
         <BaseInput
           labelText={"Username/Email"}
           placeholder={"Username/Email"}
           handleChange={this.handleChange}
           name={"credential"}
         />
+        <label>Password:</label>
         <BaseInput
           type="password"
           labelText={"Password"}
           handleChange={this.handleChange}
           name={"password"}
         />
-        <button type="submit" className="btn btn-primary">
-          Log-In
-        </button>
-        <NavLink className='btn btn-secondary' to={'/signup'}>Signup</NavLink>
+        <div className="w-full flex justify-around">
+          <button type="submit" className="btn btn-primary">
+            Log-In
+          </button>
+          <NavLink className='btn btn-secondary' to={'/signup'}>Signup</NavLink>
+        </div>
       </form>
       {
         this.state.loginSuccessful ?

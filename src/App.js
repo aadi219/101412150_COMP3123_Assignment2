@@ -9,13 +9,18 @@ import Layout from './components/Layout';
 import CreateEmployee from './components/emp/CreateEmployee';
 import ViewEmployee from './components/emp/ViewEmployee';
 import EditEmployee from './components/emp/EditEmployee';
+import { useState } from 'react';
+import UserContext from './context/UserContext';
 
 function App() {
+
+  const [userToken, setUserToken] = useState('');
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Login />} />
+          <Route index element={<Login setUserToken={setUserToken} />} />
           <Route path='signup' element={<Signup />} />
         </Route>
         <Route path='/employees' element={<Layout />}>

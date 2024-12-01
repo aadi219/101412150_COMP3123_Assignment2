@@ -1,5 +1,5 @@
 import { Navigate, NavLink, useLocation, useParams } from 'react-router-dom';
-import client from '../../client/Client';
+import { empClient } from '../../client/Client';
 import BaseInput from '../BaseInput'
 import React, { Component } from 'react'
 
@@ -18,6 +18,7 @@ export class CreateEmployee extends Component {
       date_of_joining: '',
       department: '',
       success: false,
+      errors: []
     }
 
     this.mode = this.props.id ? "UPDATE" : "CREATE";
@@ -32,6 +33,23 @@ export class CreateEmployee extends Component {
     });
   }
   
+  validateInput = (data) => {
+    let errors = [];
+    for (let key in data) {
+      if (!data[key]) {
+        errors.push("Please fill all fields");
+        break;
+      }
+    }
+    if (!data['email'].includes('@')) {
+      errors.push("Please enter a valid email");
+    }
+    this.setState({
+      ...this.state,
+      errors: errors
+    });
+  }
+
   handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -44,12 +62,16 @@ export class CreateEmployee extends Component {
         date_of_joining: this.state.date_of_joining,
         department: this.state.department 
       }
+      this.validateInput(data);
+      if (this.state.errors.length != 0) {
+        return;
+      }
       let response;
       if (this.mode == "CREATE") {
-        response = await client.post('/emp/employees', data);
+        response = await empClient.post('/emp/employees', data);
       }
       else if (this.mode == "UPDATE") {
-        response = await client.put(`/emp/employees/${this.props.id}`, data);
+        response = await empClient.put(`/emp/employees/${this.props.id}`, data);
       }
       if (response.status == 201 || response.status == 200) {
           this.setState({
@@ -64,8 +86,9 @@ export class CreateEmployee extends Component {
 
   loadEmployee = () => {
     if (this.mode == "UPDATE") {
-      client.get(`/emp/employees/${this.props.id}`).then(response => {
+      empClient.get(`/emp/employees/${this.props.id}`).then(response => {
         this.setState({
+          ...this.state,
           ...response.data
         })
       })
@@ -83,6 +106,11 @@ export class CreateEmployee extends Component {
       <>
       <form onSubmit={this.handleSubmit} className='flex flex-col gap-2 border border-gray-600 rounded-md p-5'>
         <h2 className='text-xl font-bold'>{this.mode == "CREATE" ? "Create" : "Update"} Employee</h2>
+        <ul>
+          {
+            this.state.errors.map(e => <li className='text-red-500'>{e}</li>)
+          }
+        </ul>
         <div className='w-full flex gap-2'>
           <BaseInput placeholder={'First Name'} name={'first_name'} labelText={'First Name'} value={this.state.first_name} handleChange={this.handleChange} />
           <BaseInput placeholder={'Last Name'} name={'last_name'} labelText={'Last Name'} value={this.state.last_name} handleChange={this.handleChange} />

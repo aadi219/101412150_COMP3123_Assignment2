@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
-import client from '../../client/Client';
+import { empClient } from '../../client/Client';
 
 const ViewEmployee = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
     let [employee, setEmployee] = useState(null);
-    
     const getEmployee = async () => {
-        const response = await client.get(`/emp/employees/${id}`);
+        const response = await empClient.get(`/emp/employees/${id}`);
         setEmployee(response.data);
     }
 
@@ -18,7 +17,7 @@ const ViewEmployee = () => {
     }, [])
     
     const handleDelete = async () => {
-        const response = await client.delete(`/emp/employees`, {
+        const response = await empClient.delete(`/emp/employees`, {
             params: {
                 eid: id
             }
