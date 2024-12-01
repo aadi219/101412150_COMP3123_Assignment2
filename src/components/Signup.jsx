@@ -52,19 +52,22 @@ export class Signup extends Component {
   render() {
     return (
       <>
-      <form onSubmit={this.handleSubmit}>
+      <form className="border border-gray-500 rounded-lg px-4 py-9 w-1/4 flex flex-col gap-3" onSubmit={this.handleSubmit}>
+        <label>Username:</label>
         <BaseInput
           labelText={"Username"}
           placeholder={"Username"}
           handleChange={this.handleChange}
           name={"username"}
         />
+        <label>Email:</label>
         <BaseInput
           labelText={"Email"}
           placeholder={"johndoe@domain.com"}
           handleChange={this.handleChange}
           name={"email"}
         />
+        <label>Password:</label>
         <BaseInput
           type="password"
           labelText={"Password"}
@@ -74,11 +77,11 @@ export class Signup extends Component {
         <button type="submit" className="btn btn-primary">
           Sign Up
         </button>
-        <NavLink to='/login' className='btn btn-secondary'>Login</NavLink>
+        <NavLink to='/' className='btn btn-secondary'>Login</NavLink>
       </form>
       {
         this.state.registrationSuccessful ? 
-          <Navigate to='/login' /> :
+          <Navigate to='/' /> :
           ''
       }
       </>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { empClient } from '../../client/Client';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import BaseInput from '../BaseInput';
 
 const Employees = () => {
@@ -10,6 +10,7 @@ const Employees = () => {
         const response = await empClient.get('/emp/employees');
         setEmployees(response.data);
     }
+    const navigate = useNavigate();
 
     const handleFilterChange = (e) => {
         e.preventDefault();
@@ -45,6 +46,12 @@ const Employees = () => {
             console.error(error);
         }
 
+    }
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        navigate('/');
     }
 
     useEffect(() => {
@@ -91,6 +98,9 @@ const Employees = () => {
                 </tbody>
             </table>
         }
+        <div>
+            <button className='btn btn-secondary my-2 w-64' onClick={handleLogout}>Logout</button>
+        </div>
     </div>
   )
 }

@@ -47,7 +47,7 @@ export class Login extends Component {
   render() {
     return (
       <>
-      <form onSubmit={this.handleSubmit} className="flex flex-col gap-3 w-1/4">
+      <form onSubmit={this.handleSubmit} className="flex flex-col gap-3 w-1/4 border border-gray-500 px-4 py-9 rounded-lg">
         <label>Credential:</label>
         <BaseInput
           labelText={"Username/Email"}
@@ -62,12 +62,10 @@ export class Login extends Component {
           handleChange={this.handleChange}
           name={"password"}
         />
-        <div className="w-full flex justify-around">
           <button type="submit" className="btn btn-primary">
             Log-In
           </button>
           <NavLink className='btn btn-secondary' to={'/signup'}>Signup</NavLink>
-        </div>
       </form>
       {
         this.state.loginSuccessful ?
