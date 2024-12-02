@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# COMP3123 - Assignment2
+By Aadi Badola (101412150)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+The application provides a REACT frontend web-interface for the API endpoints created in Assignment 1.
 
-## Available Scripts
+Modules used:
+- The application uses `TailwindCSS` and `DaisyUI` for styling.
+- The `Axios` library was used to make requests to the API endpoints.
+- The `react-router-dom` library was used to implement single-page navigation
 
-In the project directory, you can run:
+## Screens
+The application contains the following screens:
+### Signup
+`src/components/Signup.jsx`
 
-### `npm start`
+The signup screen contains a form to create a new user by making a `POST` request to the `/user/signup` endpoint.
+### Login
+`src/components/Login.jsx`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The login screen contains a form to authenticate a user by making a `POST` request to the `/user/login` endpoint.
+The user can provide either their username or their password for logging in. Upon successful authentication, the backend provides a JWT Token in the response which is stored in `localStorage`. No employee information can be viewed without obtaining the JWT Token.
+### Employees
+`src/components/emp/Employees.jsx`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This screen contains a table which is dynamically populated after making a `GET` request to the `/emp/employees` endpoint. Basic information of the employee is displayed and each row has buttons allowing the user to view, edit and delete an employee. The `Logout` button clears the `localStorage` token variable and redirects back to the login screen.
+#### Filter
+The component contains a text field allowing users to filter based on Department or Position by pressing the `Filter` button. If the button is pressed with no values provided then all employees are listed.
+### Create Employee
+`src/components/emp/CreateEmployee.jsx`
 
-### `npm test`
+This screen contains a form to create a new employee. All fields must be filled and a valid email must be provided.
+### Employee Details
+`src/components/emp/ViewEmployee.jsx`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This screen contains a card displaying all information about an employee.
+### Edit Employee
+`src/components/emp/CreateEmployee.jsx`
 
-### `npm run build`
+This screen uses the same component as create employee however all fields are dynamically pre-populated based on the employee selected.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
