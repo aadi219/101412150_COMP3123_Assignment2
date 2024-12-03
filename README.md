@@ -4,6 +4,14 @@ By Aadi Badola (101412150)
 ## Description
 The application provides a REACT frontend web-interface for the API endpoints created in Assignment 1.
 
+## Bug
+### Description
+Empty table is displayed after successful login. Console shows 401 Unauthorized exception `JWT Token Missing`.
+### Temporary Solution
+**Please refresh the page after logging in**. 
+### Cause
+The JWT Token obtained from the login endpoint is set in localStorage and accessed by the `empClient` axios object. However, the client object cannot access the newly set value immediately after logging in and requires a page refresh to be properly accessed.
+
 Modules used:
 - The application uses `TailwindCSS` and `DaisyUI` for styling.
 - The `Axios` library was used to make requests to the API endpoints.
